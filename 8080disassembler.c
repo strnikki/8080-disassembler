@@ -233,18 +233,18 @@ int Disassemble8080Op(unsigned char *codebuffer, int pc)
         case 0xd7: printf("RST    2"); break;
         case 0xd8: printf("RC"); break;
         case 0xd9: printf("NOP"); break;
-        case 0xda:
-        case 0xdb:
-        case 0xdc:
-        case 0xdd:
-        case 0xde:
-        case 0xdf:
-        case 0xe0:
-        case 0xe1:
-        case 0xe2:
-        case 0xe3:
-        case 0xe4:
-        case 0xe5:
+        case 0xda: printf("JC     $%02x%02x", code[2], code[1]); opbytes = 3; break;
+        case 0xdb: printf("IN     #$%02x", code[1]); opbytes = 2; break;
+        case 0xdc: printf("CC     $%02x%02x", code[2], code[1]); opbytes = 3; break;
+        case 0xdd: printf("NOP"); break;
+        case 0xde: printf("SBI    #$%02x", code[1]); opbytes = 2; break;
+        case 0xdf: printf("RST    3"); break;
+        case 0xe0: printf("RPO"); break;
+        case 0xe1: printf("POP    H"); break;
+        case 0xe2: printf("JPO    $%02x%02x", code[2], code[1]); opbytes = 3; break;
+        case 0xe3: printf("XTHL"); break;
+        case 0xe4: printf("CPO    $%02x%02x", code[2], code[1]); opbytes = 3; break;
+        case 0xe5: printf("PUSH   H"); break;
         case 0xe6:
         case 0xe7:
         case 0xe8:
