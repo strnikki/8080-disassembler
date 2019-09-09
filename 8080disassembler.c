@@ -134,7 +134,7 @@ int Disassemble8080Op(unsigned char *codebuffer, int pc)
         case 0x74: printf("MOV    M,H"); break;
         case 0x75: printf("MOV    M,L"); break;
         case 0x76: printf("HLT"); break;
-        case 0x77: printf("MOV    M,A"); break
+        case 0x77: printf("MOV    M,A"); break;
         case 0x78: printf("MOV    A,B"); break;
         case 0x79: printf("MOV    A,C"); break;
         case 0x7a: printf("MOV    A,D"); break;
@@ -253,24 +253,24 @@ int Disassemble8080Op(unsigned char *codebuffer, int pc)
         case 0xeb: printf("XCHG"); break;
         case 0xec: printf("CPE    $%02x%02x", code[2], code[1]); opbytes = 3; break;
         case 0xed: printf("NOP"); break;
-        case 0xee:
-        case 0xef:
-        case 0xf0:
-        case 0xf1:
-        case 0xf2:
-        case 0xf3:
-        case 0xf4:
-        case 0xf5:
-        case 0xf6:
-        case 0xf7:
-        case 0xf8:
-        case 0xf9:
-        case 0xfa:
-        case 0xfb:
-        case 0xfc:
-        case 0xfd:
-        case 0xfe:
-        case 0xff: break;
+        case 0xee: printf("XRI    #$%02x", code[1]); opbytes = 2; break;
+        case 0xef: printf("RST    5"); break;
+        case 0xf0: printf("RP"); break;
+        case 0xf1: printf("POP    PSW"); break;
+        case 0xf2: printf("JP     $%02x%02x", code[2], code[1]); opbytes = 3; break;
+        case 0xf3: printf("DI"); break;
+        case 0xf4: printf("CP     $%02x%02x", code[2], code[1]); opbytes = 3; break;
+        case 0xf5: printf("PUSH   PSW"); break;
+        case 0xf6: printf("ORI    #$%02x", code[1]); opbytes = 2; break;
+        case 0xf7: printf("RST    6"); break;
+        case 0xf8: printf("RM"); break;
+        case 0xf9: printf("SPHL"); break;
+        case 0xfa: printf("JM     $%02x%02x", code[2], code[1]); opbytes = 3; break;
+        case 0xfb: printf("EI"); break;
+        case 0xfc: printf("CM     $%02x%02x", code[2], code[1]); opbytes = 3; break;
+        case 0xfd: printf("NOP"); break;
+        case 0xfe: printf("CPI    #$%02x", code[1]); opbytes = 2; break;
+        case 0xff: printf("RST    7"); break;
     }    
     printf("\n");
 
@@ -306,7 +306,7 @@ int main(int argc, char** argv)
 
     while (pc < fsize)
     {
-        pc + Disassemble8080Op(buffer, pc);
+        pc += Disassemble8080Op(buffer, pc);
     }
     
     return 0;
